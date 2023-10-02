@@ -1,6 +1,8 @@
 # Your code goes here.
 # You can delete these comments, but do not change the name of this file
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
+import random
+import time
 
 board = [[]]
 
@@ -54,4 +56,27 @@ def create_board():
 
     pass
 
-    try_placing_ships_onboard(0, 0, 0, 0)
+    try_placing_ships_on_board(0, 0, 0, 0)
+
+
+def print_board():
+    """
+    Will print the grid depending on size
+    """
+    global alphabet
+    global board
+
+    pass
+
+
+def valid_shot_placement(row, col):
+    """
+    Will validate if the location of the shot is valid.
+    Will return row and column
+    """
+    global alphabet
+    global board
+
+    pass
+
+    return 0, 0
