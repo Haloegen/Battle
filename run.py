@@ -69,7 +69,7 @@ def print_board():
     pass
 
 
-def valid_shot_placement(row, col):
+def valid_shot_placement():
     """
     Will validate if the location of the shot is valid.
     Will return row and column
@@ -80,3 +80,14 @@ def valid_shot_placement(row, col):
     pass
 
     return 0, 0
+
+
+def ships_sunken():
+    """
+    """
+    global position_of_ships
+    global board
+
+    pass
+
+
