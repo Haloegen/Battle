@@ -82,7 +82,7 @@ def valid_shot_placement():
     return 0, 0
 
 
-def ships_sunken():
+def ships_sunken(row, col):
     """
     """
     global position_of_ships
@@ -91,3 +91,38 @@ def ships_sunken():
     pass
 
 
+def fire_shot():
+    """
+    """
+
+    global board
+    global ships_sunk
+    global shots_left
+
+    row, col = valid_shot_placement()
+
+    pass
+
+
+def check_game_over():
+    """
+    """
+    global ships_sunk
+    global ship_count
+    global shots_left
+    global game_over
+
+    pass
+
+
+def main():
+    """
+    """
+    global game_over
+
+    pass
+
+if __name__ == '__main__':
+    """
+    """
+    main()
