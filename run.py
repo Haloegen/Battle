@@ -29,7 +29,18 @@ def grid_and_ship_location(start_row, end_row, start_col, end_col):
     global board
     global position_of_ships
 
-    pass
+    place_valid = True
+    for r in range(start_row, end_row):
+        for c in range(start_col, end_col):
+            if board[r][c] != ".":
+                place_valid = False
+                break
+    if place_valid:
+        position_of_ships.append([start_row, end_row, start_col, end_col])
+        for r in range(start_row, end_row):
+            for c in range(start_col, end_col):
+                board[r][c] = "O"
+    return place_valid
 
 
 def place_ships_on_board(row, col, direction, length):
