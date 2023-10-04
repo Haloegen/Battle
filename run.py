@@ -107,14 +107,34 @@ def create_board():
         if place_ships_on_board(random_row, random_col, direction, ship_size):
             num_ships_placed += 1
 
+
 def print_board():
     """
     Will print the grid depending on size
     """
-    global alphabet
     global board
+    global alphabet
 
-    pass
+    debug_mode = True
+
+    alphabet = alphabet[0: len(board)+1]
+
+    for row in range(len(board)):
+        print(alphabet[row], end=") ")
+        for col in range(len(board[row])):
+            if board[row][col] == "O":
+                if debug_mode:
+                    print("O", end=" ")
+                else:
+                    print(".", end=" ")
+            else:
+                print(board[row][col], end=" ")
+        print("")
+
+    print("  ", end=" ")
+    for i in range(len(board[0])):
+        print(str(i), end=" ")
+    print("")
 
 
 def valid_shot_placement():
@@ -169,6 +189,7 @@ def main():
     global game_over
 
     pass
+
 
 if __name__ == '__main__':
     """
