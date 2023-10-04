@@ -21,7 +21,7 @@ position_of_ships = [[]]
 alphabet = "ABCDEFGHJKLMNOPQRSTUVWXYZ"
 
 
-def grid_and_ship_location(start_row, end_row, start_col, end_col):
+def board_and_ship_location(start_row, end_row, start_col, end_col):
     """
     Will check to see if the location of the ship is valid
     Returns true of false
@@ -71,7 +71,7 @@ def place_ships_on_board(row, col, direction, length):
             return False
             end_row = row + length
 
-    return validate_board_and_location(start_row, end_row, start_col, end_col)
+    return board_and_ship_location(start_row, end_row, start_col, end_col)
 
 
 def create_board():
