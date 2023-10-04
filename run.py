@@ -50,9 +50,28 @@ def place_ships_on_board(row, col, direction, length):
     """
     global board_size
 
-    pass
+    start_row, end_row, start_col, end_col = row, row+1, col, col+1
+    if direction == "left":
+        if col - length < 0:
+            return False
+        start_col = col - length + 1
+    
+    elif direction == "right":
+        if col + length >= board_size:
+            return False
+        end_col = col + length
+    
+    elif direction == "up":
+        if row - length < 0:
+            return False
+        start_row = row - length + 1
+    
+    elif direction == "down":
+        if row + length >= board_size:
+            return False
+            end_row = row + length
 
-    return valid_grid_and_location(0, 0, 0, 0)
+    return validate_board_and_location(start_row, end_row, start_col, end_col)
 
 
 def create_board():
