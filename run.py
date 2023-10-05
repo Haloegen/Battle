@@ -178,13 +178,25 @@ def valid_shot_placement():
     return row, col
 
 
-def ships_sunken(row, col):
+def validate_ships_sunken(row, col):
     """
+    If all parts of the ship have been hit the ship will be sunk
     """
     global position_of_ships
     global board
 
-    pass
+    for position in position_of_ships:
+        start_row = position[0]
+        end_row = position[1]
+        start_col = position[2]
+        end_col = position[3]
+        if start_row <= row <= end_row and start_col <= col <= end_col:
+            # ship found, needs to validate if its been sunk
+            for r in range(start_row, end_row):
+                for c in range(start_col, end_col):
+                    if board[r][c] != "X":
+                        return False
+        return True
 
 
 def fire_shot():
