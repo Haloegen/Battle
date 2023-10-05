@@ -145,9 +145,37 @@ def valid_shot_placement():
     global alphabet
     global board
 
-    pass
+    Error = print("Error: Please enter only one row and column such as b7")
 
-    return 0, 0
+    is_valid = False
+    row = -1
+    col = -1
+    while is_valid is False:
+        placement = input("Enter row (A-J) and column (0-9) such as b7: ")
+        placement = placement.upper()
+        if len(placement) <= 0 or len(placement) > 2:
+            print("Error: Please enter only one row and column such as b7")
+            continue
+        row = placement[0]
+        col = placement[1]
+        if not row.isalpha() or not col.isnumeric():
+            print(Error)
+            continue
+        row = alphabet.find(row)
+        if not (-1 < row < board_size):
+            print("Error: please enter letter (A-J) for row and (0-9) for col")
+            continue
+        col = int(col)
+        if not (-1 < col < board_size):
+            print("Error: Please enter letter (A-J) for row and (0-9) for col")
+            continue
+        if board[row][col] == "#" or board[row][col] == "X":
+            print("You have already shot here, pick somewhere else")
+            continue
+        if board[row][col] == "." or board[row][col] == "O":
+            is_valid = True
+
+    return row, col
 
 
 def ships_sunken(row, col):
