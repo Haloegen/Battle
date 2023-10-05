@@ -208,8 +208,22 @@ def fire_shot():
     global shots_left
 
     row, col = valid_shot_placement()
+    print("")
+    print("----------------------------")
 
-    pass
+    if board[row][col] == ".":
+        print("Miss!, no ship was hurt")
+        board[row][col] = "#"
+    elif board[row][col] == "O":
+        print("Hit!", end=" ")
+        board[row][col] = "X"
+    if validate_ships_sunken(row, col):
+        print("A ship was sunk")
+        ships_sunk += 1
+    else: 
+        print("A ship was hit!")
+  
+    shots_left -= 1
 
 
 def check_game_over():
