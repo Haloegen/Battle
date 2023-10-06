@@ -108,7 +108,7 @@ def create_board():
             num_ships_placed += 1
 
 
-def print_board():
+def print_board(reveal_ships=False):
     """
     Will print the grid depending on size
     """
@@ -117,16 +117,13 @@ def print_board():
 
     debug_mode = True
 
-    alphabet = alphabet[0: len(board)+1]
+    alphabet = alphabet[0: len(board) + 1]
 
     for row in range(len(board)):
         print(alphabet[row], end=") ")
         for col in range(len(board[row])):
-            if board[row][col] == "O":
-                if debug_mode:
-                    print("O", end=" ")
-                else:
-                    print(".", end=" ")
+            if board[row][col] == "O" and not reveal_ships:
+                print(".", end=" ")
             else:
                 print(board[row][col], end=" ")
         print("")
