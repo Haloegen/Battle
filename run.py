@@ -228,24 +228,42 @@ def fire_shot():
 
 def check_game_over():
     """
+    If all ships have been sunk or we run out of bullets its game over
     """
     global ships_sunk
     global ship_count
     global shots_left
     global game_over
 
-    pass
+    if ship_count == ships_sunk:
+        print("You win!")
+        game_over = True
+    elif shots_left <= 0:
+        print("You lose! You ran out of shots")
+        game_over = True
 
 
 def main():
     """
+    main entry point
     """
     global game_over
 
-    pass
+    print("-- Welcome to Battleships in Python --")
+    print(f"You have {shots_left} shots left to take down {ship_count} ships")
+
+    create_board()
+
+    while game_over is False:
+        print_board()
+        print("Ships remaining" + str(ship_count - ships_sunk))
+        print("Shots Left:" + str(shots_left))
+        fire_shot()
+        print("----------------------------")
+        print("")
+        check_game_over()
 
 
 if __name__ == '__main__':
-    """
-    """
+
     main()
