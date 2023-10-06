@@ -196,17 +196,22 @@ def validate_ships_sunken(row, col):
         return True
 
 
-def fire_shot():
+def fire_shot(player_turn=True):
     """
+    Perform a shot, either by the player or AI.
     """
-
     global board
     global ships_sunk
     global shots_left
 
-    row, col = valid_shot_placement()
-    print("")
-    print("----------------------------")
+    if player_turn:
+        row, col = valid_shot_placement()
+    else:
+        print("AI's turn...")
+        time.sleep(1)  
+        row, col = ai_generate_move()
+
+    print("\n----------------------------")
 
     if board[row][col] == ".":
         print("Miss!, no ship was hurt")
@@ -217,9 +222,9 @@ def fire_shot():
         if validate_ships_sunken(row, col):
             print("A ship was sunk")
             ships_sunk += 1
-        else: 
+        else:
             print("A ship was hit!")
-  
+
     shots_left -= 1
 
 
@@ -240,25 +245,47 @@ def check_game_over():
         game_over = True
 
 
+def ai_generate_move():
+    """
+    Generate a random AI move (row, col).
+    """
+    global board_size
+    global board
+    global alphabet
+
+    while True:
+        row = random.choice(alphabet)
+        col = random.randint(0, board_size - 1)
+        row_index = alphabet.find(row)
+        if row_index != -1 and board[row_index][col] != "#" and board[row_index][col] != "X":
+            return row_index, col
+
+
 def main():
     """
-    main entry point
+    Main game loop for Player vs AI.
     """
     global game_over
-
-    print("-- Welcome to Battleships in Python --")
-    print(f"You have {shots_left} shots left to take down {ship_count} ships")
+    global ship_count
 
     create_board()
 
-    while game_over is False:
-        print_board()
-        print("Ships remaining" + str(ship_count - ships_sunk))
-        print("Shots Left:" + str(shots_left))
-        fire_shot()
-        print("----------------------------")
-        print("")
-        check_game_over()
+    while not game_over:
+        print_board(reveal_ships=False)
+        print("Ships sunk: {}, Shots left: {}".format(ships_sunk, shots_left))
+
+        # Player's turn
+        fire_shot(player_turn=True)
+        if ships_sunk == ship_count or shots_left == 0:
+            game_over = True
+            break
+
+        # AI's turn
+        fire_shot(player_turn=False)
+        if ships_sunk == ship_count or shots_left == 0:
+            game_over = True
+
+    print("Game Over!")
 
 
 if __name__ == '__main__':
