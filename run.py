@@ -240,6 +240,22 @@ def fire_shot(player_turn=True):
     shots_left -= 1
 
 
+def ai_generate_move():
+    """
+    Generate a random AI move (row, col).
+    """
+    global board_size
+    global ai_board
+    global alphabet
+
+    while True:
+        row = random.choice(alphabet)
+        col = random.randint(0, board_size - 1)
+        row_index = alphabet.find(row)
+        if row_index != -1 and ai_board[row_index][col] != "#" and ai_board[row_index][col] != "X":
+            return row_index, col
+
+
 def check_game_over():
     """
     If all ships have been sunk or we run out of bullets its game over
