@@ -6,6 +6,8 @@ import time
 
 board = [[]]
 
+ai_board = []
+
 board_size = 10
 
 ship_count = 8
@@ -106,6 +108,16 @@ def create_board():
         ship_size = random.randint(2, 6)
         if place_ships_on_board(random_row, random_col, direction, ship_size):
             num_ships_placed += 1
+        
+
+def create_ai_board():
+    """
+    Create a separate board for the AI.
+    """
+    global board_size
+    global ai_board
+
+    ai_board = [['.' for _ in range(board_size)] for _ in range(board_size)]
 
 
 def print_board(reveal_ships=False):
