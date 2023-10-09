@@ -14,7 +14,7 @@ ship_count = 8
 
 shots_left = 50
 
-game_over = False 
+game_over = False
 
 ships_sunk = 0
 
@@ -28,9 +28,6 @@ def board_and_ship_location(start_row, end_row, start_col, end_col):
     Will check to see if the location of the ship is valid
     Returns true of false
     """
-    global board
-    global position_of_ships
-
     place_valid = True
     for r in range(start_row, end_row):
         for c in range(start_col, end_col):
@@ -50,29 +47,27 @@ def place_ships_on_board(row, col, direction, length):
     Will try and place a ship will return true or false if ship location is
     invalid
     """
-    global board_size
 
     start_row, end_row, start_col, end_col = row, row+1, col, col+1
     if direction == "left":
         if col - length < 0:
             return False
         start_col = col - length + 1
-    
+
     elif direction == "right":
         if col + length >= board_size:
             return False
         end_col = col + length
-    
+
     elif direction == "up":
         if row - length < 0:
             return False
         start_row = row - length + 1
-    
+
     elif direction == "down":
         if row + length >= board_size:
             return False
-            end_row = row + length
-
+        end_row = row + length
     return board_and_ship_location(start_row, end_row, start_col, end_col)
 
 
@@ -82,8 +77,6 @@ def create_board():
     Ships will be of different sizes
     """
     global board
-    global board_size
-    global ship_count
     global position_of_ships
 
     random.seed(time.time())
@@ -91,14 +84,14 @@ def create_board():
     rows, cols = (board_size, board_size)
 
     board = []
-    for r in range(rows):
+    for _ in range(rows):
         row = []
-        for c in range(cols):
+        for _ in range(cols):
             row.append(".")
         board.append(row)
-        
+
     num_ships_placed = 0
-    
+
     position_of_ships = []
 
     while num_ships_placed != ship_count:
@@ -108,13 +101,12 @@ def create_board():
         ship_size = random.randint(2, 6)
         if place_ships_on_board(random_row, random_col, direction, ship_size):
             num_ships_placed += 1
-        
+
 
 def create_ai_board():
     """
     Create a separate board for the AI.
     """
-    global board_size
     global ai_board
 
     ai_board = [['.' for _ in range(board_size)] for _ in range(board_size)]
@@ -124,10 +116,7 @@ def print_board(reveal_ships=False):
     """
     Will print the grid depending on size
     """
-    global board
     global alphabet
-
-    debug_mode = True
 
     alphabet = alphabet[0: len(board) + 1]
 
@@ -150,28 +139,26 @@ def fire_shot(player_turn=True):
     """
     Perform a shot, either by the player or AI.
     """
-    global board
-    global ai_board
     global ships_sunk
     global shots_left
 
     if player_turn:
         row, col = valid_shot_placement()
-        target_board = ai_board  
+        target_board = ai_board
     else:
         print("AI's turn...")
-        time.sleep(1) 
+        time.sleep(1)
         row, col = ai_generate_move()
-        target_board = board  
+        target_board = board
 
     print("\n----------------------------")
 
     if target_board[row][col] == ".":
         print("Miss!, no ship was hurt")
-        target_board[row][col] = "#"  
+        target_board[row][col] = "#"
     elif target_board[row][col] == "O":
         print("Hit!", end=" ")
-        target_board[row][col] = "X"  
+        target_board[row][col] = "X"
         if validate_ships_sunken(row, col):
             print("A ship was sunk")
             ships_sunk += 1
@@ -186,11 +173,6 @@ def valid_shot_placement():
     Will validate if the location of the shot is valid.
     Will return row and column
     """
-    global alphabet
-    global board
-
-    Error = print("Error: Please enter only one row and column such as b7")
-
     is_valid = False
     row = -1
     col = -1
@@ -198,11 +180,12 @@ def valid_shot_placement():
         placement = input("Enter row (A-J) and column (0-9) such as b7: ")
         placement = placement.upper()
         if len(placement) <= 0 or len(placement) > 2:
+            print("Error: Please enter only one row and column such as b7")
             continue
         row = placement[0]
         col = placement[1]
         if not row.isalpha() or not col.isnumeric():
-            print(Error)
+            print(("Error: Please enter only one row and column such as b7"))
             continue
         row = alphabet.find(row)
         if not (-1 < row < board_size):
@@ -225,8 +208,6 @@ def validate_ships_sunken(row, col):
     """
     If all parts of the ship have been hit the ship will be sunk
     """
-    global position_of_ships
-    global board
 
     for position in position_of_ships:
         start_row = position[0]
@@ -246,9 +227,6 @@ def check_game_over():
     """
     If all ships have been sunk or we run out of bullets its game over
     """
-    global ships_sunk
-    global ship_count
-    global shots_left
     global game_over
 
     if ship_count == ships_sunk:
@@ -263,15 +241,13 @@ def ai_generate_move():
     """
     Generate a random AI move (row, col).
     """
-    global board_size
-    global board
-    global alphabet
-
     while True:
         row = random.choice(alphabet)
         col = random.randint(0, board_size - 1)
         row_index = alphabet.find(row)
-        if row_index != -1 and board[row_index][col] != "#" and board[row_index][col] != "X":
+        if (row_index != -1 and
+            board[row_index][col] != "#" and
+                board[row_index][col] != "X"):
             return row_index, col
 
 
@@ -280,8 +256,6 @@ def main():
     Main game loop for Player vs AI.
     """
     global game_over
-    global ship_count
-
     create_board()
 
     while not game_over:
