@@ -146,6 +146,41 @@ def print_board(reveal_ships=False):
     print("")
 
 
+def fire_shot(player_turn=True):
+    """
+    Perform a shot, either by the player or AI.
+    """
+    global board
+    global ai_board
+    global ships_sunk
+    global shots_left
+
+    if player_turn:
+        row, col = valid_shot_placement()
+        target_board = ai_board  
+    else:
+        print("AI's turn...")
+        time.sleep(1) 
+        row, col = ai_generate_move()
+        target_board = board  
+
+    print("\n----------------------------")
+
+    if target_board[row][col] == ".":
+        print("Miss!, no ship was hurt")
+        target_board[row][col] = "#"  
+    elif target_board[row][col] == "O":
+        print("Hit!", end=" ")
+        target_board[row][col] = "X"  
+        if validate_ships_sunken(row, col):
+            print("A ship was sunk")
+            ships_sunk += 1
+        else:
+            print("A ship was hit!")
+
+    shots_left -= 1
+
+
 def valid_shot_placement():
     """
     Will validate if the location of the shot is valid.
@@ -163,7 +198,6 @@ def valid_shot_placement():
         placement = input("Enter row (A-J) and column (0-9) such as b7: ")
         placement = placement.upper()
         if len(placement) <= 0 or len(placement) > 2:
-            print("Error: Please enter only one row and column such as b7")
             continue
         row = placement[0]
         col = placement[1]
@@ -206,54 +240,6 @@ def validate_ships_sunken(row, col):
                     if board[r][c] != "X":
                         return False
         return True
-
-
-def fire_shot(player_turn=True):
-    """
-    Perform a shot, either by the player or AI.
-    """
-    global board
-    global ships_sunk
-    global shots_left
-
-    if player_turn:
-        row, col = valid_shot_placement()
-    else:
-        print("AI's turn...")
-        time.sleep(1)  
-        row, col = ai_generate_move()
-
-    print("\n----------------------------")
-
-    if board[row][col] == ".":
-        print("Miss!, no ship was hurt")
-        board[row][col] = "#"
-    elif board[row][col] == "O":
-        print("Hit!", end=" ")
-        board[row][col] = "X"
-        if validate_ships_sunken(row, col):
-            print("A ship was sunk")
-            ships_sunk += 1
-        else:
-            print("A ship was hit!")
-
-    shots_left -= 1
-
-
-def ai_generate_move():
-    """
-    Generate a random AI move (row, col).
-    """
-    global board_size
-    global ai_board
-    global alphabet
-
-    while True:
-        row = random.choice(alphabet)
-        col = random.randint(0, board_size - 1)
-        row_index = alphabet.find(row)
-        if row_index != -1 and ai_board[row_index][col] != "#" and ai_board[row_index][col] != "X":
-            return row_index, col
 
 
 def check_game_over():
@@ -317,5 +303,5 @@ def main():
 
 
 if __name__ == '__main__':
-
+    create_ai_board()
     main()
