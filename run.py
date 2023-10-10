@@ -112,25 +112,36 @@ def create_ai_board():
     ai_board = [['.' for _ in range(board_size)] for _ in range(board_size)]
 
 
-def print_board(reveal_ships=False):
+def print_board(player_board, ai_board, reveal_ships=False):
     """
-    Will print the grid depending on size
+    Print both player and AI boards with hits and misses.
     """
     global alphabet
 
-    alphabet = alphabet[0: len(board) + 1]
+    alphabet = alphabet[0: len(player_board) + 1]
 
-    for row in range(len(board)):
+    print("Player's Board:")
+    for row in range(len(player_board)):
         print(alphabet[row], end=") ")
-        for col in range(len(board[row])):
-            if board[row][col] == "O" and not reveal_ships:
+        for col in range(len(player_board[row])):
+            if player_board[row][col] == "O" and not reveal_ships:
                 print(".", end=" ")
             else:
-                print(board[row][col], end=" ")
+                print(player_board[row][col], end=" ")
         print("")
 
-    print("  ", end=" ")
-    for i in range(len(board[0])):
+    print("\nAI's Board:")
+    for row in range(len(ai_board)):
+        print(alphabet[row], end=") ")
+        for col in range(len(ai_board[row])):
+            if ai_board[row][col] == "O" and not reveal_ships:
+                print(".", end=" ")
+            else:
+                print(ai_board[row][col], end=" ")
+        print("")
+
+    print("\n  ", end=" ")
+    for i in range(len(player_board[0])):
         print(str(i), end=" ")
     print("")
 
@@ -256,10 +267,15 @@ def main():
     Main game loop for Player vs AI.
     """
     global game_over
-    create_board()
+    global ship_count
+    global board
+    global ai_board
+
+    create_ai_board()  # Create the AI's board
+    create_board()  # Create the player's board
 
     while not game_over:
-        print_board(reveal_ships=False)
+        print_board(board, ai_board, reveal_ships=False)
         print("Ships sunk: {}, Shots left: {}".format(ships_sunk, shots_left))
 
         # Player's turn
