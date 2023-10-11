@@ -12,7 +12,9 @@ board_size = 10
 
 ship_count = 8
 
-shots_left = 50
+player_shots_left = 50
+
+ai_shots_left = 50
 
 game_over = False
 
@@ -114,7 +116,8 @@ def create_ai_board():
 
 def print_board(player_board, ai_board, reveal_ships=False):
     """
-    Print both player and AI boards with hits and misses.
+    Print the player's board with ship locations and the AI's board
+    with hits and misses.
     """
     global alphabet
 
@@ -134,10 +137,7 @@ def print_board(player_board, ai_board, reveal_ships=False):
     for row in range(len(ai_board)):
         print(alphabet[row], end=") ")
         for col in range(len(ai_board[row])):
-            if ai_board[row][col] == "O" and not reveal_ships:
-                print(".", end=" ")
-            else:
-                print(ai_board[row][col], end=" ")
+            print(ai_board[row][col], end=" ")
         print("")
 
     print("\n  ", end=" ")
@@ -151,7 +151,8 @@ def fire_shot(player_turn=True):
     Perform a shot, either by the player or AI.
     """
     global ships_sunk
-    global shots_left
+    global player_shots_left
+    global ai_shots_left
 
     if player_turn:
         row, col = valid_shot_placement()
@@ -176,7 +177,9 @@ def fire_shot(player_turn=True):
         else:
             print("A ship was hit!")
 
-    shots_left -= 1
+    player_shots_left -= 1
+    
+    ai_shots_left -= 1
 
 
 def valid_shot_placement():
@@ -243,9 +246,11 @@ def check_game_over():
     if ship_count == ships_sunk:
         print("You win!")
         game_over = True
-    elif shots_left <= 0:
+    elif player_shots_left <= 0:
         print("You lose! You ran out of shots")
         game_over = True
+    elif ai_shots_left <= 0:
+        print("You win, the computer lost")
 
 
 def ai_generate_move():
@@ -267,31 +272,27 @@ def main():
     Main game loop for Player vs AI.
     """
     global game_over
-    global ship_count
-    global board
-    global ai_board
 
     create_ai_board()  # Create the AI's board
     create_board()  # Create the player's board
 
     while not game_over:
-        print_board(board, ai_board, reveal_ships=False)
-        print("Ships sunk: {}, Shots left: {}".format(ships_sunk, shots_left))
-
+        print_board(board, ai_board, reveal_ships=True)
+        print(f"Player Shots left: {player_shots_left}")
+        print(f"AI Shots left: {ai_shots_left}")
         # Player's turn
         fire_shot(player_turn=True)
-        if ships_sunk == ship_count or shots_left == 0:
+        if ships_sunk == ship_count or player_shots_left == 0:
             game_over = True
             break
 
         # AI's turn
         fire_shot(player_turn=False)
-        if ships_sunk == ship_count or shots_left == 0:
+        if ships_sunk == ship_count or ai_shots_left == 0:
             game_over = True
 
     print("Game Over!")
 
 
 if __name__ == '__main__':
-    create_ai_board()
     main()
