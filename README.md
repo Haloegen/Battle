@@ -1,32 +1,43 @@
 ![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
 
-Welcome,
+# Battleship Game
 
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **March 14, 2023**
+## Introduction
 
-## Reminders
+This is a Python implementation of the classic Battleship game for a player to play against an AI opponent. In this game, you'll place your ships on a game board and take turns with the AI to make shots and sink each other's ships. The game provides a user-friendly interface for both players and displays both player and AI boards.
 
-- Your code must be placed in the `run.py` file
-- Your dependencies must be placed in the `requirements.txt` file
-- Do not edit any of the other files or your code may not deploy properly
+## Table of Contents
 
-## Creating the Heroku app
+- [Features](#features)
+- [How to Play](#how-to-play)
+- [Game Rules](#game-rules)
 
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
+## Features
 
-1. `heroku/python`
-2. `heroku/nodejs`
+- Player vs. AI gameplay.
+- Separate game boards for the player and AI.
+- Reveal ship locations on the player's board.
+- Independent shot counts for the player and AI.
+- User-friendly interface with clear instructions.
 
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
 
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
+## How to Play
+- When the console is ran, you are given intructions on how to play.
+- X's indicate hits 
+- O's indicate where your ship location is 
+-  '.' indicate free slots on the board 
+- '#' indicare missed shots
+- The game ends after 25 shots by either the computer or the player. If all shots are used then the player and Ai Draw
 
-Connect your GitHub repository and deploy as normal.
+## Data model
+- I used the board as my data model and attributed it the board class that generates the ai and the player board
 
-## Constraints
+## Testing
 
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
+### Manual testing
+- Through manual testing I made sure the game worked, through using invalid inputs, incorrect co-ords.
+- I also passed it through a PEP8 Linter to test the validity of the code
+- I did most of the testing through the console
 
----
-
-Happy coding!
+## Bugs 
+- The code has 

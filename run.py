@@ -3,6 +3,8 @@
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 import random
 import time
+from enum import Enum
+
 
 board = [[]]
 
@@ -23,6 +25,13 @@ ships_sunk = 0
 position_of_ships = [[]]
 
 alphabet = "ABCDEFGHJKLMNOPQRSTUVWXYZ"
+
+
+class Directions:
+    Up = "up"
+    Down = "down"
+    Left = "left"
+    Right = "right"
 
 
 def board_and_ship_location(start_row, end_row, start_col, end_col):
@@ -49,7 +58,6 @@ def place_ships_on_board(row, col, direction, length):
     Will try and place a ship will return true or false if ship location is
     invalid
     """
-
     start_row, end_row, start_col, end_col = row, row+1, col, col+1
     if direction == "left":
         if col - length < 0:
@@ -178,7 +186,6 @@ def fire_shot(player_turn=True):
             print("A ship was hit!")
 
     player_shots_left -= 1
-    
     ai_shots_left -= 1
 
 
