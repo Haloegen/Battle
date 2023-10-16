@@ -185,8 +185,8 @@ def fire_shot(player_turn=True):
         else:
             print("A ship was hit!")
 
-    player_shots_left -= 1
-    ai_shots_left -= 1
+    player_shots_left -= 0.5
+    ai_shots_left -= 0.5
 
 
 def valid_shot_placement():
