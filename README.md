@@ -27,7 +27,7 @@ This is a Python implementation of the classic Battleship game for a player to p
 - O's indicate where your ship location is 
 -  '.' indicate free slots on the board 
 - '#' indicare missed shots
-- The game ends after 25 shots by either the computer or the player. If all shots are used then the player and Ai Draw
+- The game ends after 50 shots by either the computer or the player. If all shots are used then the player and Ai Draw
 
 ## Data model
 - I used the board as my data model and attributed it the board class that generates the ai and the player board
