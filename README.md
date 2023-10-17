@@ -1,4 +1,3 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
 
 # Battleship Game
 
@@ -29,7 +28,11 @@ This is a Python implementation of the classic Battleship game for a player to p
 - '#' indicare missed shots
 - The game ends after 50 shots by either the computer or the player. If all shots are used then the player and Ai Draw
 
-## Data model
+## Game Rules
+- The player has 50 shots to try and sink the ai ships. If he misses the ships or all his ships are sunk he loses.
+
+  
+## Data models
 - I used the board as my data model and attributed it the board class that generates the ai and the player board
 
 ## Testing
@@ -40,4 +43,10 @@ This is a Python implementation of the classic Battleship game for a player to p
 - I did most of the testing through the console
 
 ## Bugs 
-- The code has 
+- Through testing several bugs, were found, through the mistyping of variable names.
+- The incorrect syntax of code
+
+## Future development
+- A score board and a range of board sizes  and ships sizes available to be chosen by the player.
+
+
