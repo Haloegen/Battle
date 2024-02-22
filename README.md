@@ -9,12 +9,6 @@ This is a Python implementation of the classic Battleship game for a player to p
 This game was built with python3
 
 
-## Table of Contents
-
-- [Features](#features)
-- [How to Play](#how-to-play)
-- [Game Rules](#game-rules)
-
 ## Features
 
 - Player vs. AI gameplay.
