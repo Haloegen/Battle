@@ -5,6 +5,10 @@
 
 This is a Python implementation of the classic Battleship game for a player to play against an AI opponent. In this game, you'll place your ships on a game board and take turns with the AI to make shots and sink each other's ships. The game provides a user-friendly interface for both players and displays both player and AI boards.
 
+# Built with
+This game was built with python3
+
+
 ## Table of Contents
 
 - [Features](#features)
@@ -39,14 +43,19 @@ This is a Python implementation of the classic Battleship game for a player to p
 
 ### Manual testing
 - Through manual testing I made sure the game worked, through using invalid inputs, incorrect co-ords.
-- I also passed it through a PEP8 Linter to test the validity of the code
 - I did most of the testing through the console
+- using manual testing, i tested the fire shot function, and ship hit function and the gameover function, through manual testing when a shot is fired and missed it is represented by a '#' and when it is hit it is represented by a 'X'.
+- insuring that the project runs and can be hosted on Heroku, and are actually able to finish a game
 
 ## Bugs 
 - Through testing several bugs, were found, through the mistyping of variable names.
 - The incorrect syntax of code
+- when a part or ship segment is hit you will see the "A ship is sunk" the code registers all segments or targets as individual ships.
 
 ## Future development
-- A score board and a range of board sizes  and ships sizes available to be chosen by the player.
+- Implement a more sophisticated algorithm for the computer's guesses.
+- Add a graphical user interface (GUI) for a more interactive experience.
+- Allow for more customization of ships and game rules.
 
-
+## Acknowledgements
+- Using this video as inspiration by [Knowledge Mavens](https://www.youtube.com/watch?v=tF1WRCrd_HQ&t=1514s) is how i started my project.
