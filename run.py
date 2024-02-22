@@ -128,9 +128,9 @@ def get_revealed_board(board):
     for row in range(board_size):
         for col in range(board_size):
             cell = board[row][col]
-            if cell in ['O', 'X', '#']:  # If the cell is a ship, hit, or miss
+            if cell in ['O', 'X', '#']: 
                 revealed_board[row][col] = cell
-            else:  # For water/empty cells, keep them as '.'
+            else:  
                 revealed_board[row][col] = '.'
     return revealed_board
 
@@ -183,8 +183,7 @@ def valid_shot_placement(target_board):
 
 
 def validate_ships_sunken(row, col, target_board):
-    # Assuming simplified logic for ship sinking validation
-    # This function should be expanded based on your game's logic
+
     return target_board[row][col] == "X"
 
 
