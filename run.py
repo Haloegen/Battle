@@ -13,7 +13,7 @@ ships_sunk = 0
 ai_ships_sunk = 0
 ai_ship_segments = 0
 position_of_ships = [[]]
-alphabet = "ABCDEFGHJKLMNOPQRSTUVWXYZ"
+alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 
 class Directions(Enum):
@@ -131,7 +131,7 @@ def print_board(player_board, ai_board, reveal_ships=False):
 
 def get_revealed_board(board):
     """
-    Returns a new board with all ships ('O'), hits ('X'), 
+    Returns a new board with all ships ('O'), hits ('X'),
     and misses ('#') revealed,
     while keeping empty water cells ('.') as is.
     """
@@ -216,7 +216,7 @@ def check_game_over():
         print("All AI ships have been sunk! You win!")
         game_over = True
     elif player_shots_left <= 0:
-        print("You've run out of shots! Game over!")
+        print("You've run out of shots!You lost! Game over!")
         game_over = True
     elif ai_shots_left <= 0:
         print("AI has run out of shots! You win!")
@@ -234,7 +234,7 @@ def ai_generate_move():
 def main():
     global game_over
 
-    reveal_ships = True  # Change to True to reveal AI ships for debugging
+    reveal_ships = False  # Change to True to reveal AI ships for debugging
 
     create_ai_board()
     create_board()
