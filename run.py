@@ -82,17 +82,17 @@ def create_ai_board():
     while num_ships_placed < ship_count:
         rand_row = random.randint(0, board_size - 1)
         rand_col = random.randint(0, board_size - 1)
-        direction = random.choice(
-            [
-                Directions.LEFT.value,
-                Directions.RIGHT.value,
-                Directions.UP.value,
-                Directions.DOWN.value,
-            ]
-        )
+        direction = random.choice([
+            Directions.LEFT.value,
+            Directions.RIGHT.value,
+            Directions.UP.value,
+            Directions.DOWN.value,
+        ])
         ship_size = random.randint(2, 6)
 
-        if place_ships_on_board(ai_board, rand_row, rand_col, direction, ship_size):
+        if place_ships_on_board(
+            ai_board, rand_row, rand_col, direction, ship_size
+        ):
             num_ships_placed += 1
             ai_ship_segments += ship_size
 
@@ -113,7 +113,8 @@ def print_board(player_board, ai_board, reveal_ships=False):
 
 
 def fire_shot(player_turn=True):
-    global ships_sunk, player_shots_left, ai_shots_left, ai_ship_segments, player_ship_segments
+    global ships_sunk, player_shots_left, ai_shots_left
+    global ai_ship_segments, player_ship_segments
 
     row, col = (-1, -1)
     if player_turn:
