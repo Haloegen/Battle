@@ -93,7 +93,7 @@ This is a Python implementation of the classic Battleship game where the player 
 
 ## Bugs
 - Fixed issues with mistyped variable names and incorrect syntax.
-- Corrected a bug where ship segments were incorrectly registered as individual ships.
+- individual ship segments show up as Ship hit in the terminal, and then sunk. 
 -when coding all my code passes the pep8 linter, bar two lines as seen in the screen shot below
 - ![pep8linter](https://res.cloudinary.com/dtajxn9oi/image/upload/v1719315138/Screenshot_64_vb4a1x.png)
 
