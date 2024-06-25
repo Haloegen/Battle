@@ -1,6 +1,8 @@
 # Battleship Game
 
 
+
+
 ## Table of Contents
 1. [Introduction](#introduction)
 2. [Core Features](#core-features)
@@ -18,6 +20,15 @@
 
 ## Introduction 
 This is a Python implementation of the classic Battleship game where the player competes against an AI opponent. Both players' ships are hidden from each other. The board is generated randomly, and players take turns shooting at the board to sink each other's ships. The game displays the boards and registers hits and misses for user-friendly functionality.
+
+## Objective
+The user should be able to play the game vs the AI, finding out the location of the ships with hits and misses, the ships should be grouped together, allowing problem solving for findind the direction and coordinates of other ships, while providing feedback when putting errors into the console.
+
+## Data models
+- I used the board as my data model and attributed it the board class that generates the ai and the player board, this allows the user to see where the ai has hit and where the player has also hit/miss.
+
+# Built with
+This game was built with python3
 
 ## Core Features
 - Human vs. AI gameplay
@@ -37,6 +48,7 @@ This is a Python implementation of the classic Battleship game where the player 
 
 ## Game Rules
 - The player has 50 shots to sink the AI ships. If the player misses or all their ships are sunk, they lose.
+- When a shot hits/misses the terminal provides feedback E.G ship hit/ shot miss.
 
 ## User Stories
 1. As a player, I want to input my moves via a command-line interface to interact with the game.
