@@ -12,6 +12,7 @@ game_over = False
 ships_sunk = 0
 ai_ships_sunk = 0
 ai_ship_segments = 0
+player_ship_segments = 0
 position_of_ships = [[]]
 alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
@@ -21,21 +22,6 @@ class Directions(Enum):
     DOWN = "down"
     LEFT = "left"
     RIGHT = "right"
-
-
-def board_and_ship_location(start_row, end_row, start_col, end_col):
-    place_valid = True
-    for r in range(start_row, end_row):
-        for c in range(start_col, end_col):
-            if board[r][c] != ".":
-                place_valid = False
-                break
-    if place_valid:
-        position_of_ships.append([start_row, end_row, start_col, end_col])
-        for r in range(start_row, end_row):
-            for c in range(start_col, end_col):
-                board[r][c] = "O"
-    return place_valid
 
 
 def place_ships_on_board(target_board, row, col, direction, length):
@@ -71,7 +57,7 @@ def place_ships_on_board(target_board, row, col, direction, length):
 
 
 def create_board():
-    global board, position_of_ships
+    global board, player_ship_segments
 
     board = [["." for _ in range(board_size)] for _ in range(board_size)]
     num_ships_placed = 0
@@ -82,10 +68,9 @@ def create_board():
         direction = random.choice(["left", "right", "up", "down"])
         ship_size = random.randint(2, 6)
 
-        if place_ships_on_board(
-            board, rand_row, rand_col, direction, ship_size
-        ):
+        if place_ships_on_board(board, rand_row, rand_col, direction, ship_size):
             num_ships_placed += 1
+            player_ship_segments += ship_size
 
 
 def create_ai_board():
@@ -107,9 +92,7 @@ def create_ai_board():
         )
         ship_size = random.randint(2, 6)
 
-        if place_ships_on_board(
-            ai_board, rand_row, rand_col, direction, ship_size
-        ):
+        if place_ships_on_board(ai_board, rand_row, rand_col, direction, ship_size):
             num_ships_placed += 1
             ai_ship_segments += ship_size
 
@@ -129,27 +112,8 @@ def print_board(player_board, ai_board, reveal_ships=False):
     print("   " + " ".join(str(i) for i in range(board_size)))
 
 
-def get_revealed_board(board):
-    """
-    Returns a new board with all ships ('O'), hits ('X'),
-    and misses ('#') revealed,
-    while keeping empty water cells ('.') as is.
-    """
-    revealed_board = [
-        ["." for _ in range(board_size)] for _ in range(board_size)
-    ]
-    for row in range(board_size):
-        for col in range(board_size):
-            cell = board[row][col]
-            if cell in ["O", "X", "#"]:
-                revealed_board[row][col] = cell
-            else:
-                revealed_board[row][col] = "."
-    return revealed_board
-
-
 def fire_shot(player_turn=True):
-    global ships_sunk, player_shots_left, ai_shots_left, ai_ship_segments
+    global ships_sunk, player_shots_left, ai_shots_left, ai_ship_segments, player_ship_segments
 
     row, col = (-1, -1)
     if player_turn:
@@ -178,6 +142,11 @@ def fire_shot(player_turn=True):
             if validate_ships_sunken(row, col, ai_board):
                 print(" A ship was sunk!")
                 ships_sunk += 1
+        else:
+            player_ship_segments -= 1
+            print(" Your ship was hit!")
+            if validate_ships_sunken(row, col, board):
+                print(" Your ship was sunk!")
 
 
 def valid_shot_placement(target_board):
@@ -193,10 +162,7 @@ def valid_shot_placement(target_board):
         ):
             row = alphabet.find(placement[0])
             col = int(placement[1])
-            if 0 <= col < board_size and target_board[row][col] not in [
-                "#",
-                "X",
-            ]:
+            if 0 <= col < board_size and target_board[row][col] not in ["#", "X"]:
                 return row, col
             else:
                 print("You have already shot here, pick somewhere else.")
@@ -205,18 +171,20 @@ def valid_shot_placement(target_board):
 
 
 def validate_ships_sunken(row, col, target_board):
-
     return target_board[row][col] == "X"
 
 
 def check_game_over():
-    global game_over, ai_ship_segments
+    global game_over, ai_ship_segments, player_ship_segments
 
     if ai_ship_segments <= 0:
         print("All AI ships have been sunk! You win!")
         game_over = True
+    elif player_ship_segments <= 0:
+        print("All your ships have been sunk! You lose!")
+        game_over = True
     elif player_shots_left <= 0:
-        print("You've run out of shots!You lost! Game over!")
+        print("You've run out of shots! You have drawn! Game over!")
         game_over = True
     elif ai_shots_left <= 0:
         print("AI has run out of shots! You win!")
